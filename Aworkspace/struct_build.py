@@ -1,12 +1,14 @@
+
 import idc
 import ida_struct
-import ida_bytes
 import idaapi
+import ida_bytes
     
 def arch():
     if idaapi.BADADDR == 0xffffffffffffffff:
         return 64
     return 32
+
 
 def build_struct(name , mem_size):
     sid = ida_struct.get_struc_id(name)
@@ -22,5 +24,5 @@ def build_struct(name , mem_size):
         member_size = 4
     
     for i in range(mem_size // member_size):
-        idc.add_struc_member(sid, "field_{}".format(i), -1, member_type, -1, member_size)
+        idc.add_struc_member(sid, "field_{:x}".format(i * member_size), -1, member_type, -1, member_size)
 

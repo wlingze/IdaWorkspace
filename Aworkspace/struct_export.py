@@ -47,6 +47,8 @@ class Structs():
     
     def export(self):
         for struct in self.structs:
+            self.export_func("struct {};\n".format(struct))
+        for struct in self.structs:
             self.export_struct(struct)
         
     def export_member(self, member_type, name):

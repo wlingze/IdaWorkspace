@@ -5,6 +5,14 @@ from .function_export import Funcs
 import inspect
 import ida_idp
 
+define = '''
+
+#define __int8 char
+#define __int16 short
+#define __int32 int
+#define __int64 long long
+
+'''
 
 class idb_hooks_t(ida_idp.IDB_Hooks):
 
@@ -37,6 +45,7 @@ class idb_hooks_t(ida_idp.IDB_Hooks):
         fp = open(self.file, "w")
         func = Funcs(fp.write)
         struct = Structs(fp.write)
+        fp.write(define)
         struct.export()
         func.export()
         fp.close()
